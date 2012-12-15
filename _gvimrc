@@ -1,6 +1,6 @@
 " vim:set ts=8 sts=2 sw=2 tw=0: (この行に関しては:help modelineを参照)
 "
-" Last Change: 29-Nov-2012.
+" Last Change: 15-Dec-2012.
 " Maintainer:  y.y
 "
 helptags $VIM/vim73/doc
@@ -470,7 +470,8 @@ nnoremap <C-h> :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><Enter>
 
 " gvimrc の設定環境変数
-let $MYGVIMRC = '$VIM/_gvimrc'
+"let $MYGVIMRC = '$VIM/_gvimrc'
+let $MYGVIMRC = '$HOME/dotfiles/_gvimrc'
 
 " gvimrcを即座に開く
 nnoremap <Space>.
@@ -483,7 +484,8 @@ nnoremap <Space>s.
 \        :<C-u>source $MYGVIMRC<CR>
 
 " vimrc の設定環境変数
-let $MYVIMRC = '$VIM/_vimrc'
+"let $MYVIMRC = '$VIM/_vimrc'
+let $MYVIMRC = '$HOME/dotfiles/_vimrc'
 
 " vimrcを即座に開く
 nnoremap <Space>/
@@ -1025,26 +1027,26 @@ imap <C-T> <Plug>ToggleI
 nmap <C-T> <Plug>ToggleN
 vmap <C-T> <Plug>ToggleV
 
-"---------------------------------------------------------------------------
-" TweetVim.vim
-"---------------------------------------------------------------------------
-" タイムライン選択用の Unite を起動する
-nnoremap <silent> <C-t> :Unite tweetvim<CR>
-" 発言用バッファを表示する
-nnoremap <silent> s           :<C-u>TweetVimSay<CR>
-" mentions を表示する
-nnoremap <silent> <Space>re   :<C-u>TweetVimMentions<CR>
-" 特定のリストのタイムラインを表示する
-nnoremap <silent> <Space>tt   :<C-u>TweetVimListStatuses friends<CR>
-
-" スクリーン名のキャッシュを利用して、neocomplcache で補完する
-if !exists('g:neocomplcache_dictionary_filetype_lists')
-  let g:neocomplcache_dictionary_filetype_lists = {}
-endif
-let neco_dic = g:neocomplcache_dictionary_filetype_lists
-let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
-" アイコン表示（ImageMagickが必要）
-"let g:tweetvim_display_icon = 1
+""---------------------------------------------------------------------------
+"" TweetVim.vim
+""---------------------------------------------------------------------------
+"" タイムライン選択用の Unite を起動する
+"nnoremap <silent> <C-t> :Unite tweetvim<CR>
+"" 発言用バッファを表示する
+"nnoremap <silent> say           :<C-u>TweetVimSay<CR>
+"" mentions を表示する
+"nnoremap <silent> <Space>re   :<C-u>TweetVimMentions<CR>
+"" 特定のリストのタイムラインを表示する
+"nnoremap <silent> <Space>tt   :<C-u>TweetVimListStatuses friends<CR>
+"
+"" スクリーン名のキャッシュを利用して、neocomplcache で補完する
+"if !exists('g:neocomplcache_dictionary_filetype_lists')
+"  let g:neocomplcache_dictionary_filetype_lists = {}
+"endif
+"let neco_dic = g:neocomplcache_dictionary_filetype_lists
+"let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
+"" アイコン表示（ImageMagickが必要）
+""let g:tweetvim_display_icon = 1
 
 "---------------------------------------------------------------------------
 " savevers.vim 編集履歴を自動ナンバリングで記録

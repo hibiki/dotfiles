@@ -3,8 +3,8 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 29-Nov-2012.
-" Maintainer:  MURAOKA Taro <koron@tka.att.ne.jp>
+" Last Change: 15-Dec-2012.
+" Maintainer:  y.y.
 "
 "---------------------------------------------------------------------------
 " gist
@@ -68,7 +68,7 @@ NeoBundle 'git://github.com/jpo/vim-railscasts-theme.git'
 NeoBundle 'git://github.com/scrooloose/nerdtree.git'
 NeoBundle 'git://github.com/tyru/open-browser.vim.git'
 NeoBundle 'git://github.com/basyura/twibill.vim.git'
-NeoBundle 'git://github.com/basyura/TweetVim.git'
+"NeoBundle 'git://github.com/basyura/TweetVim.git'
 NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
 NeoBundle 'git://github.com/basyura/bitly.vim.git'
 
