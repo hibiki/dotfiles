@@ -1,7 +1,7 @@
 " vim:set ts=8 sts=2 sw=2 tw=0: (‚±‚Ìs‚ÉŠÖ‚µ‚Ä‚Í:help modeline‚ğQÆ)
 "
 " Last Change: 15-Dec-2012.
-" Maintainer:  y.y.
+" Maintainer:  y.y
 "
 helptags $VIM/vim73/doc
 runtime macros/matchit.vim
