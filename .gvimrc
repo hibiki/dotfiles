@@ -1,7 +1,7 @@
 " vim:set ts=8 sts=2 sw=2 tw=0: (この行に関しては:help modelineを参照)
 "
 " Last Change: 15-Dec-2012.
-" Maintainer:  y.y
+" Maintainer:  y.y..
 "
 helptags $VIM/vim73/doc
 runtime macros/matchit.vim
@@ -227,7 +227,7 @@ autocmd BufRead *.txt set tw=0
 " http://espion.just-size.jp/archives/06/034090759.html
 "au BufEnter * execute ":lcd " . escape(expand("%:p:h"), " #\\")
 " 全ファイルを対象にすると Gist.vim がおかしげになるので、html,shtml,css,js,php,pl,tpl,_gvimrc を対象に
-au BufEnter *.html,*.shtml,*.css,*.scss,*.js,*.php,*.pl,*.tpl,_gvimrc execute ":lcd " . expand("%:p:h")
+au BufEnter *.html,*.shtml,*.css,*.scss,*.js,*.php,*.pl,*.tpl,.gvimrc execute ":lcd " . expand("%:p:h")
 " 入力モード時、ステータスラインのカラーを変更
 augroup InsertHook
   autocmd!
@@ -471,7 +471,7 @@ nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><Enter>
 
 " gvimrc の設定環境変数
 "let $MYGVIMRC = '$VIM/_gvimrc'
-let $MYGVIMRC = '$HOME/dotfiles/_gvimrc'
+let $MYGVIMRC = '$HOME/dotfiles/.gvimrc'
 
 " gvimrcを即座に開く
 nnoremap <Space>.
@@ -485,7 +485,7 @@ nnoremap <Space>s.
 
 " vimrc の設定環境変数
 "let $MYVIMRC = '$VIM/_vimrc'
-let $MYVIMRC = '$HOME/dotfiles/_vimrc'
+let $MYVIMRC = '$HOME/dotfiles/.vimrc'
 
 " vimrcを即座に開く
 nnoremap <Space>/
