@@ -38,8 +38,8 @@ filetype off                   " Required!
 if has('vim_starting')
 "  set runtimepath+=d:/tool/vim/.bundle/neobundle.vim
 "  call neobundle#rc(expand('d:/tool/vim/.bundle'))
-  set runtimepath+=~/.bundle/neobundle.vim
-  call neobundle#rc(expand('~/.bundle'))
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+  call neobundle#rc(expand('~/.vim/bundle'))
 endif
 
 "自動でリポジトリと同期するプラグイン
@@ -71,13 +71,14 @@ NeoBundle 'git://github.com/basyura/twibill.vim.git'
 "NeoBundle 'git://github.com/basyura/TweetVim.git'
 NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
 NeoBundle 'git://github.com/basyura/bitly.vim.git'
+NeoBundle 'git://github.com/tomasr/molokai.git'
 
 "リポジトリを持たないプラグイン
 "NeoBundle 'monday', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
 "NeoBundle 'ShowMarks', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
 "NeoBundle 'commentout', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
 "NeoBundle 'colorscheme', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
-NeoBundleLocal ~/.bundle_manual
+NeoBundleLocal ~/.vim/bundle_manual
 
 filetype plugin on
 filetype indent on

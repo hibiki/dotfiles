@@ -46,6 +46,17 @@ elseif has('xfontset')
   set guifontset=a14,r14,k14
 endif
 
+if has('gui_macvim')
+  set showtabline=2    " タブを常に表示
+  set transparency=5   " 透明度
+  set imdisable        " IME OFF
+  set antialias        " アンチエイリアス
+  set visualbell t_vb= " ビープ音なし
+  " フォント設定
+  set guifontwide=Osaka:h14
+  set guifont=Osaka-Mono:h18
+endif
+
 "---------------------------------------------------------------------------
 " ウインドウに関する設定:
 "
