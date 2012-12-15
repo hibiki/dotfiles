@@ -1,6 +1,6 @@
 " vim:set ts=8 sts=2 sw=2 tw=0: (この行に関しては:help modelineを参照)
 "
-" Last Change: 15-Dec-2012.
+" Last Change: 16-Dec-2012.
 " Maintainer:  y.y
 "
 helptags $VIM/vim73/doc
@@ -54,7 +54,8 @@ if has('gui_macvim')
   set visualbell t_vb= " ビープ音なし
   " フォント設定
   set guifontwide=Osaka:h14
-  set guifont=Osaka-Mono:h18
+  "set guifont=Osaka-Mono:h18
+  set guifont=Ricty:h18
 endif
 
 "---------------------------------------------------------------------------
