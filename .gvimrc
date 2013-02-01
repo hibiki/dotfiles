@@ -1,6 +1,6 @@
 " vim:set ts=8 sts=2 sw=2 tw=0: (この行に関しては:help modelineを参照)
 "
-" Last Change: 01-Feb-2013.
+" Last Change: 22-Jan-2013.
 " Maintainer:  y.y
 "
 helptags $VIM/vim73/doc
@@ -40,7 +40,11 @@ if has('win32')
     set ambiwidth=auto
   endif
 elseif has('mac')
+<<<<<<< HEAD
   set guifont=Osaka?等幅:h14
+=======
+  set guifont=Osaka－等幅:h14
+>>>>>>> 2013/02/01
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14
