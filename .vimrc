@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 15-Dec-2012.
+" Last Change: 28-Jan-2013.
 " Maintainer:  y.y
 "
 "---------------------------------------------------------------------------
@@ -72,6 +72,9 @@ NeoBundle 'git://github.com/basyura/twibill.vim.git'
 NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
 NeoBundle 'git://github.com/basyura/bitly.vim.git'
 NeoBundle 'git://github.com/tomasr/molokai.git'
+NeoBundle 'glidenote/memolist.vim'
+"NeoBundle 'git://github.com/AtsushiM/sass-compile.vim.git' windowsでtempがどうも上手く作れてない？
+NeoBundle 'git://github.com/rhysd/clever-f.vim.git'
 
 "リポジトリを持たないプラグイン
 "NeoBundle 'monday', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
