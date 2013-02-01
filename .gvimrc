@@ -1,6 +1,6 @@
 " vim:set ts=8 sts=2 sw=2 tw=0: (この行に関しては:help modelineを参照)
 "
-" Last Change: 22-Jan-2013.
+" Last Change: 01-Feb-2013.
 " Maintainer:  y.y
 "
 helptags $VIM/vim73/doc
@@ -40,11 +40,7 @@ if has('win32')
     set ambiwidth=auto
   endif
 elseif has('mac')
-<<<<<<< HEAD
-  set guifont=Osaka?等幅:h14
-=======
   set guifont=Osaka－等幅:h14
->>>>>>> 2013/02/01
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14
@@ -58,8 +54,7 @@ if has('gui_macvim')
   set visualbell t_vb= " ビープ音なし
   " フォント設定
   set guifontwide=Osaka:h14
-  "set guifont=Osaka-Mono:h18
-  set guifont=Ricty:h18
+  set guifont=Osaka-Mono:h18
 endif
 
 "---------------------------------------------------------------------------
@@ -835,7 +830,7 @@ let $PATH = $PATH . ';' . 'C:\Program Files (x86)\Lynx for Win32\'
 "let g:ref_alc_encoding = 'UTF-8'    " イマイチよく分かってない
 "let g:ref_cache_dir = $VIM . '\dir\alccache'   " ローカルにキャッシュ
 "if exists('*ref#register_detection')
-"  " filetypeが分からんならalc
+"	" filetypeが分からんならalc
 "	call ref#register_detection('_', 'alc')
 "endif
 
@@ -1104,7 +1099,6 @@ let g:sass_compile_file = ['scss', 'sass']
 let g:sass_compile_cssdir = ['css', 'stylesheet']
 
 let g:sass_compile_beforecmd = ""
-let g:sass_compile_aftercmd = ""
 
 ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 "
