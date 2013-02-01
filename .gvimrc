@@ -1,7 +1,7 @@
 " vim:set ts=8 sts=2 sw=2 tw=0: (この行に関しては:help modelineを参照)
 "
-" Last Change: 16-Dec-2012.
-" Maintainer:  y.y utf8
+" Last Change: 01-Feb-2013.
+" Maintainer:  y.y
 "
 helptags $VIM/vim73/doc
 runtime macros/matchit.vim
@@ -40,7 +40,7 @@ if has('win32')
     set ambiwidth=auto
   endif
 elseif has('mac')
-  set guifont=Osaka−等幅:h14
+  set guifont=Osaka?等幅:h14
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14
@@ -831,7 +831,7 @@ let $PATH = $PATH . ';' . 'C:\Program Files (x86)\Lynx for Win32\'
 "let g:ref_alc_encoding = 'UTF-8'    " イマイチよく分かってない
 "let g:ref_cache_dir = $VIM . '\dir\alccache'   " ローカルにキャッシュ
 "if exists('*ref#register_detection')
-"	" filetypeが分からんならalc
+"  " filetypeが分からんならalc
 "	call ref#register_detection('_', 'alc')
 "endif
 
@@ -1078,6 +1078,29 @@ nmap <silent> <F7> :VersDiff -c<cr>
 " スクラッチバッファを開く
 nnoremap <F8> :Scratch<CR>
 
+"---------------------------------------------------------------------------
+" memolist.vim
+"---------------------------------------------------------------------------
+let g:memolist_path = "D:/EvernoteTest"
+let g:memolist_memo_suffix = "txt"
+
+"---------------------------------------------------------------------------
+" sass-compile.vim
+"---------------------------------------------------------------------------
+" 編集したファイルから遡るフォルダの最大数
+let g:sass_compile_cdloop = 5
+
+" ファイル保存時に自動コンパイル（1で自動実行）
+let g:sass_compile_auto = 1
+
+" 自動コンパイルを実行する拡張子
+let g:sass_compile_file = ['scss', 'sass']
+
+" cssファイルが入っているディレクトリ名（前のディレクトリほど優先）
+let g:sass_compile_cssdir = ['css', 'stylesheet']
+
+let g:sass_compile_beforecmd = ""
+let g:sass_compile_aftercmd = ""
 
 ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 "
