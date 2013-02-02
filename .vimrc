@@ -74,7 +74,7 @@ NeoBundle 'basyura/bitly.vim.git'
 NeoBundle 'tomasr/molokai.git'
 NeoBundle 'glidenote/memolist.vim'
 "NeoBundle 'AtsushiM/sass-compile.vim.git' windowsでtempがどうも上手く作れてない？
-NeoBundle 'git://github.com/rhysd/clever-f.vim.git'
+NeoBundle 'rhysd/clever-f.vim.git'
 
 "リポジトリを持たないプラグイン
 "NeoBundle 'monday', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
