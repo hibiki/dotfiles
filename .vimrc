@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 28-Jan-2013.
+" Last Change: 03-Feb-2013.
 " Maintainer:  y.y
 "
 "---------------------------------------------------------------------------
@@ -43,37 +43,37 @@ if has('vim_starting')
 endif
 
 "自動でリポジトリと同期するプラグイン
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
-NeoBundle 'git://github.com/Shougo/vimproc.git'
-NeoBundle 'git://github.com/Shougo/unite.vim.git'
-NeoBundle 'git://github.com/Shougo/vimfiler.git'
-NeoBundle 'git://github.com/Shougo/vimshell.git'
-NeoBundle 'git://github.com/tpope/vim-surround.git'
-NeoBundle 'git://github.com/tpope/vim-repeat.git'
-NeoBundle 'git://github.com/ujihisa/unite-colorscheme.git'
-NeoBundle 'git://github.com/ujihisa/vimshell-ssh.git'
-NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
-NeoBundle 'git://github.com/vim-jp/vimdoc-ja.git'
-NeoBundle 'git://github.com/kana/vim-smartchr.git'
-NeoBundle 'git://github.com/mattn/zencoding-vim.git'
-NeoBundle 'git://github.com/mattn/gist-vim.git'
-NeoBundle 'git://github.com/mattn/webapi-vim.git'
-NeoBundle 'git://github.com/Lokaltog/vim-easymotion.git'
-NeoBundle 'git://github.com/hail2u/vim-css3-syntax.git'
-NeoBundle 'git://github.com/othree/eregex.vim.git'
-NeoBundle 'git://gist.github.com/411828.git', {'directory': 'endtagcomment'}
-NeoBundle 'git://github.com/cakebaker/scss-syntax.vim.git'
-NeoBundle 'git://github.com/jpo/vim-railscasts-theme.git'
-NeoBundle 'git://github.com/scrooloose/nerdtree.git'
-NeoBundle 'git://github.com/tyru/open-browser.vim.git'
-NeoBundle 'git://github.com/basyura/twibill.vim.git'
-"NeoBundle 'git://github.com/basyura/TweetVim.git'
-NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
-NeoBundle 'git://github.com/basyura/bitly.vim.git'
-NeoBundle 'git://github.com/tomasr/molokai.git'
+NeoBundle 'Shougo/neocomplcache.git'
+NeoBundle 'Shougo/neobundle.vim.git'
+NeoBundle 'Shougo/vimproc.git'
+NeoBundle 'Shougo/unite.vim.git'
+NeoBundle 'Shougo/vimfiler.git'
+NeoBundle 'Shougo/vimshell.git'
+NeoBundle 'tpope/vim-surround.git'
+NeoBundle 'tpope/vim-repeat.git'
+NeoBundle 'ujihisa/unite-colorscheme.git'
+NeoBundle 'ujihisa/vimshell-ssh.git'
+NeoBundle 'altercation/vim-colors-solarized.git'
+NeoBundle 'vim-jp/vimdoc-ja.git'
+NeoBundle 'kana/vim-smartchr.git'
+NeoBundle 'mattn/zencoding-vim.git'
+NeoBundle 'mattn/gist-vim.git'
+NeoBundle 'mattn/webapi-vim.git'
+NeoBundle 'Lokaltog/vim-easymotion.git'
+NeoBundle 'hail2u/vim-css3-syntax.git'
+NeoBundle 'othree/eregex.vim.git'
+NeoBundle 'git://gist.github.com/411828.git', {'directory': 'endtagcomment/plugin'}
+NeoBundle 'cakebaker/scss-syntax.vim.git'
+NeoBundle 'jpo/vim-railscasts-theme.git'
+NeoBundle 'scrooloose/nerdtree.git'
+NeoBundle 'tyru/open-browser.vim.git'
+NeoBundle 'basyura/twibill.vim.git'
+"NeoBundle 'basyura/TweetVim.git'
+NeoBundle 'h1mesuke/unite-outline.git'
+NeoBundle 'basyura/bitly.vim.git'
+NeoBundle 'tomasr/molokai.git'
 NeoBundle 'glidenote/memolist.vim'
-"NeoBundle 'git://github.com/AtsushiM/sass-compile.vim.git' windowsでtempがどうも上手く作れてない？
+"NeoBundle 'AtsushiM/sass-compile.vim.git' windowsでtempがどうも上手く作れてない？
 NeoBundle 'git://github.com/rhysd/clever-f.vim.git'
 
 "リポジトリを持たないプラグイン
