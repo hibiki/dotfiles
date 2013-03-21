@@ -1,6 +1,6 @@
 " vim:set ts=8 sts=2 sw=2 tw=0: (この行に関しては:help modelineを参照)
 "
-" Last Change: 05-Feb-2013.
+" Last Change: 09-Mar-2013.
 " Maintainer:  y.y
 "
 helptags $VIM/vim73/doc
@@ -541,8 +541,8 @@ nnoremap <Space>q :<C-u>q<CR>
 " yeでそのカーソル位置にある単語をレジスタに追加
 nmap ye :let @"=expand("<cword>")<CR>
 
-" Space+C でクリップボードにコピー
-vmap <Space>c "+y
+" Ctrl+C でクリップボードにコピー
+vmap <C-c> "+y
 
 " タブ操作
 " tab pagesを使い易くする
@@ -1089,6 +1089,11 @@ let g:sass_compile_file = ['scss', 'sass']
 let g:sass_compile_cssdir = ['css', 'stylesheet']
 
 let g:sass_compile_beforecmd = ""
+
+"---------------------------------------------------------------------------
+" CSSComb
+"---------------------------------------------------------------------------
+vnoremap <Space>c :CSScomb<CR>
 
 ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 "

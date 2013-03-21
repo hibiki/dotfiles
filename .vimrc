@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 03-Feb-2013.
+" Last Change: 17-Mar-2013.
 " Maintainer:  y.y
 "
 "---------------------------------------------------------------------------
@@ -27,7 +27,7 @@ let g:neocomplcache_enable_at_startup = 1
 "---------------------------------------------------------------------------
 " unite.vim
 "---------------------------------------------------------------------------
-let g:unite_source_history_yank_enable =1  "history/yankの有効化
+let g:unite_source_history_yank_enable = 1  "history/yankの有効化
 
 "---------------------------------------------------------------------------
 " neobundle.vim
@@ -79,9 +79,12 @@ NeoBundle 'h1mesuke/unite-outline.git'
 NeoBundle 'basyura/bitly.vim.git'
 NeoBundle 'tomasr/molokai.git'
 NeoBundle 'glidenote/memolist.vim'
-"NeoBundle 'AtsushiM/sass-compile.vim.git' windowsでtempがどうも上手く作れてない？
+" sass-compile.vim - windowsでtempがどうも上手く作れてない？
+"NeoBundle 'AtsushiM/sass-compile.vim.git'
 NeoBundle 'rhysd/clever-f.vim.git'
 NeoBundle 'hokaccha/vim-html5validator.git'
+NeoBundle 'miripiruni/CSScomb-for-Vim.git'
+NeoBundle 'scrooloose/syntastic.git'
 
 "リポジトリを持たないプラグイン
 "NeoBundle 'monday', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
@@ -98,4 +101,25 @@ filetype indent on
 "---------------------------------------------------------------------------
 let g:EasyMotion_leader_key = ','
 
+"---------------------------------------------------------------------------
+" syntastic (for jiHint) 
+"---------------------------------------------------------------------------
+"保存時にはチェック
+let g:syntastic_check_on_save = 1
+"エラーがあったら自動でロケーションリストを開く
+let g:syntastic_auto_loc_list = 1
+"エラー表示ウィンドウの高さ
+let g:syntastic_loc_list_height = 6
+"jshintを使う
+let g:syntastic_javascript_checker = 'jshint'
+let g:syntastic_mode_map = {
+      \  'mode': 'active',
+      \ 'active_filetypes': [],
+      \ 'passive_filetypes': ['html']
+      \ }
+"      \ 'active_filetypes': ['ruby', 'javascript'],
+"エラー表示マークを変更
+let g:syntastic_enable_signs=1
+let g:syntastic_error_symbol='x'
+let g:syntastic_warning_symbol='!!'
 
