@@ -1,6 +1,6 @@
 " vim:set ts=8 sts=2 sw=2 tw=0: (この行に関しては:help modelineを参照)
 "
-" Last Change: 09-Mar-2013.
+" Last Change: 09-Mar-2013
 " Maintainer:  y.y
 "
 helptags $VIM/vim73/doc
