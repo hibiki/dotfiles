@@ -960,10 +960,12 @@ augroup END
 "---------------------------------------------------------------------------
 "inoremap <expr> = smartchr#loop(' = ', ' == ', '=')
 autocmd FileType css inoremap <expr> : smartchr#loop(': ', ':')
+autocmd FileType css inoremap <expr> / smartchr#loop('/', '/*  */<Left><Left><Left>')
 "autocmd FileType php inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 "autocmd FileType javascript inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 autocmd FileType xhtml inoremap <expr> = smartchr#one_of('=""', '=')
-inoremap <expr> " smartchr#one_of('"', '""', "'", "''")
+inoremap <expr> " smartchr#loop('"', '""', "'", "''")
+inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 
 "---------------------------------------------------------------------------
 " Gist
@@ -1095,6 +1097,11 @@ let g:sass_compile_beforecmd = ""
 "---------------------------------------------------------------------------
 vnoremap <Space>c :CSScomb<CR>
 
+"---------------------------------------------------------------------------
+" vim-powerline
+"---------------------------------------------------------------------------
+let g:Powerline_mode_V = 'LINE-VISUAL'
+
 ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 "
 " 文字コードの自動認識用
@@ -1163,4 +1170,3 @@ endif
 "---------------------------------------------------------------------------
 "ab #b /* ---------------------------------------
 "ab #e ---------------------------------------- */
-
