@@ -232,6 +232,7 @@ noremap <Space>p [z
 
 " *.txt なファイルを編集するときに長い行で勝手に改行が入ってしまう場合に，それを止める方法
 autocmd BufRead *.txt set tw=0
+
 " ディレクトリ自動移動 (開いたファイルのディレクトリがカレントディレクトリに)
 " http://nanasi.jp/articles/vim/cd_vim.html
 "au BufEnter * execute ":lcd " . expand("%:p:h")
@@ -348,6 +349,9 @@ augroup END
 "相対URLでもgfで開けるように
 autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
 
+" JS辞書読みこみ
+autocmd FileType javascript :set dictionary=$HOME/.vim/dict/javascript.dict,$HOME/.vim/dict/jQuery.dict
+
 ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 " キー割当等
 "---------------------------------------------------------------------------
@@ -438,8 +442,8 @@ imap <S-Space> <C-X><C-O>
 nmap g/ :exec ':vimgrep /' . getreg('/') . '/j %\|cwin'<CR>
 nmap G/ :silent exec ':bufdo vimgrepadd /' . getreg('/') . '/j %'<CR>\|:silent cwin<CR>
 " tabをCtrl+tabできりかえ
-nmap <C-Tab> gt
-nmap <C-S-Tab> gT 
+"nmap <C-Tab> gt
+"nmap <C-S-Tab> gT 
 " 先頭と最後に移動を変更
 "noremap z $
 noremap 0 _
@@ -514,8 +518,8 @@ nnoremap gc  `[v`]
 "vnoremap <Space>t :s/\t/\&#x0009;/g<CR>
 
 " tab → &nbsp; *4
-nnoremap <Space>tt <S-v>:s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g<CR>:let @/=''<CR>
-vnoremap <Space>tt :s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g<CR>:let @/=''<CR>
+nnoremap <Space>st <S-v>:s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g<CR>:let @/=''<CR>
+vnoremap <Space>st :s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g<CR>:let @/=''<CR>
 
 " html エスケープ
 " http://liosk.blog103.fc2.com/blog-entry-187.html
@@ -547,12 +551,14 @@ vmap <C-c> "+y
 " タブ操作
 " tab pagesを使い易くする
 "http://whileimautomaton.net/2008/08/vimworkshop3-kana-presentation
-nnoremap ,t  <Nop>
-nnoremap ,tn  :<C-u>tabnew<CR>
-nnoremap ,tc  :<C-u>tabclose<CR>
-nnoremap ,to  :<C-u>tabonly<CR>
-nnoremap ,tj  :<C-u>execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
-nnoremap ,tk  gT
+"nnoremap ,t  <Nop>
+nnoremap [tab] <Nop>
+nmap     <Space>t [tab]
+nnoremap [tab]n  :<C-u>tabnew<CR>
+nnoremap [tab]c  :<C-u>tabclose<CR>
+nnoremap [tab]o  :<C-u>tabonly<CR>
+nnoremap [tab]j  :<C-u>execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
+nnoremap [tab]k  gT
 
 " F5: 前のタブ F6: 次のタブ F7: 新規タブ F8: タブを閉じる
 "nnoremap <F5> :<C-u>tabprevious<CR>
@@ -572,11 +578,11 @@ nnoremap bc :<C-u>bwipe<CR>
 
 " tags-and-searchesを使い易くする
 "http://whileimautomaton.net/2008/08/vimworkshop3-kana-presentation
-nnoremap t  <Nop>
-nnoremap tt  <C-]>
-nnoremap tj  :<C-u>tag<CR>
-nnoremap tk  :<C-u>pop<CR>
-nnoremap tl  :<C-u>tags<CR>
+"nnoremap t  <Nop>
+"nnoremap tt  <C-]>
+"nnoremap tj  :<C-u>tag<CR>
+"nnoremap tk  :<C-u>pop<CR>
+"nnoremap tl  :<C-u>tags<CR>
 
 "カーソル位置の単語検索
 nmap <C-g><C-w> :grep "<C-R><C-W>" *.c *.h *.php *.html *.shtml *.js *.css *.sql<CR>
@@ -769,25 +775,35 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 let g:unite_enable_start_insert=1
 " history/yankの有効化 -> vimrc に指定
 
+nnoremap [unite]    <Nop>
+nmap     <Space>u [unite]
+"nmap     ,u [unite]
 " バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 "nnoremap <silent> <C-p> :<C-u>Unite buffer<CR>
 " ファイル一覧 - file_current_dir
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " ファイル一覧 - current_dir（再帰的、プレビュー付き）
-nnoremap <silent> ,up :<C-u>Unite file_rec -auto-preview<CR>
+nnoremap <silent> [unite]p :<C-u>Unite file_rec -auto-preview<CR>
 " レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 " 常用セット
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> [unite]u :<C-u>Unite buffer file_mru<CR>
 "nnoremap <silent> <C-n> :<C-u>Unite buffer file_mru<CR>
 " 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 " yank
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
+inoremap <silent> <C-y> <Esc>:Unite history/yank<CR>
+" ブックマーク一覧
+nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
+" ブックマークに追加
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+" UniteBookMarkAdd で追加したディレクトリを Unite bookmark で開くときのアクションのデフォルトを Vimfiler に
+call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 
 " ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
@@ -807,6 +823,30 @@ let g:unite_enable_split_vertically = 1
 if globpath(&rtp, 'plugin/unite.vim') != ''
   nnoremap sc :<C-u>Unite colorscheme<Cr>
 endif
+
+"---------------------------------------------------------------------------
+" vimfiler
+"---------------------------------------------------------------------------
+let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_as_default_explorer = 1
+" vimfiler をサクサク起動する
+nnoremap [vimfiler]    <Nop>
+nmap     <Space>f [vimfiler]
+nnoremap <silent> [vimfiler]f :<C-u>VimFiler<CR>
+"現在開いているバッファのディレクトリを開く
+nnoremap <silent> [vimfiler]d :<C-u>VimFilerBufferDir -quit<CR>
+nnoremap <silent> <C-Tab> :<C-u>VimFilerBufferDir -quit<CR>
+"現在開いているバッファをIDE風に開く
+nnoremap <silent> [vimfiler]t :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
+"デフォルトのキーマッピングを変更
+augroup vimrc
+  autocmd FileType vimfiler call s:vimfiler_my_settings()
+augroup END
+function! s:vimfiler_my_settings()
+  nmap <buffer> q <Plug>(vimfiler_exit)
+  nmap <buffer> Q <Plug>(vimfiler_hide)
+  nmap <buffer> <C-e> <Plug>(vimfiler_hide)
+endfunction
 
 "---------------------------------------------------------------------------
 " vim-ref
@@ -964,6 +1004,7 @@ autocmd FileType css inoremap <expr> / smartchr#loop('/', '/*  */<Left><Left><Le
 "autocmd FileType php inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 "autocmd FileType javascript inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 autocmd FileType xhtml inoremap <expr> = smartchr#one_of('=""', '=')
+autocmd FileType html inoremap <expr> = smartchr#one_of('=""', '=')
 inoremap <expr> " smartchr#loop('"', '""', "'", "''")
 inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 
@@ -992,9 +1033,9 @@ nnoremap <Space>gu :Gist -l
 let g:endtagcommentFormat = '<!-- / %id%class -->'
 " http://twitter.com/#!/kosei27/status/10625078672756736
 " class名変えたりしたときは、既存のコメント消した後で追加
-nnoremap <Space>, :<C-u>call Endtagcomment()<CR>
-nnoremap <Space>,t ^df> :<C-u>call Endtagcomment()<CR>
-inoremap <Space>, <Esc>:<C-u>call Endtagcomment()<CR>
+nnoremap <Space>e ^df> :<C-u>call Endtagcomment()<CR>
+"nnoremap <Space>, :<C-u>call Endtagcomment()<CR>
+inoremap <Space>e <Esc>:<C-u>call Endtagcomment()<CR>
 
 "---------------------------------------------------------------------------
 " srcexpl.vim - 今使っていない
@@ -1009,14 +1050,6 @@ let g:SrcExpl_UpdateTags    = 1
 let g:SrcExpl_RefreshMapKey = "<Space>"
 let g:SrcExpl_GoBackMapKey  = "<C-b>"
 "nmap <F8> :SrcExplToggle<CR>
-
-"---------------------------------------------------------------------------
-" vimfiler
-"---------------------------------------------------------------------------
-let g:vimfiler_safe_mode_by_default = 0
-let g:vimfiler_as_default_explorer = 1
-" vimfiler をサクサク起動する
-nnoremap <S-Space>f :<C-u>VimFiler<CR>
 
 "---------------------------------------------------------------------------
 " showmarks
@@ -1068,6 +1101,7 @@ nmap <silent> <F7> :VersDiff -c<cr>
 "---------------------------------------------------------------------------
 " スクラッチバッファを開く
 nnoremap <F8> :Scratch<CR>
+nnoremap <Space>sb :Scratch<CR>
 
 "---------------------------------------------------------------------------
 " memolist.vim
