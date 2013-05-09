@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 22-Mar-2013.
+" Last Change: 29-Apr-2013.
 " Maintainer:  y.y
 "
 "---------------------------------------------------------------------------
@@ -17,6 +17,22 @@ let g:github_user = 'hibiki'
 "let g:user_zen_expandabbr_key = "<C-t>"
 let g:user_zen_expandabbr_key = "<C-e>"
 let g:use_zen_complete_tag = 1
+" 言語別に対応させる
+let g:user_zen_settings = {
+\  'lang' : 'ja',
+\  'html' : {
+\    'filters' : 'html',
+\    'snippets' : {
+\      'jq' : "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js\"></script>\n<script>\n\\$(function() {\n\t|\n})()\n</script>",
+\      'cd' : "<![CDATA[|]]>",
+\      'img' : "<img src=\"|\" alt=\"\">",
+\    },
+\    'indentation' : ' '
+\  },
+\  'css' : {
+\  'filters' : 'fc',
+\  },
+\}
 
 "---------------------------------------------------------------------------
 " neocomplcache.vim
@@ -90,8 +106,6 @@ NeoBundle 'Lokaltog/vim-powerline.git'
 
 "リポジトリを持たないプラグイン
 "NeoBundle 'monday', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
-"NeoBundle 'ShowMarks', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
-"NeoBundle 'commentout', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
 "NeoBundle 'colorscheme', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
 NeoBundleLocal ~/.vim/bundle_manual
 
@@ -106,12 +120,17 @@ let g:EasyMotion_leader_key = ','
 "---------------------------------------------------------------------------
 " syntastic (for jiHint) 
 "---------------------------------------------------------------------------
+let g:syntastic_check_on_open = 1
 "保存時にはチェック
 let g:syntastic_check_on_save = 1
 "エラーがあったら自動でロケーションリストを開く
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 2
 "エラー表示ウィンドウの高さ
 let g:syntastic_loc_list_height = 6
+"エラー表示マークを変更
+let g:syntastic_enable_signs=1
+let g:syntastic_error_symbol='x'
+let g:syntastic_warning_symbol='!!'
 "jshintを使う
 let g:syntastic_javascript_checker = 'jshint'
 let g:syntastic_mode_map = {
@@ -120,8 +139,14 @@ let g:syntastic_mode_map = {
       \ 'passive_filetypes': ['html']
       \ }
 "      \ 'active_filetypes': ['ruby', 'javascript'],
-"エラー表示マークを変更
-let g:syntastic_enable_signs=1
-let g:syntastic_error_symbol='x'
-let g:syntastic_warning_symbol='!!'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+"let g:syntastic_mode_map = { 'mode': 'active',
+"  \ 'active_filetypes': [],
+"  \ 'passive_filetypes': ['html'] }
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_javascript_checker = 'jshint'
+"let g:syntastic_enable_signs=1
 
