@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 29-Apr-2013.
+" Last Change: 12-May-2013.
 " Maintainer:  y.y
 "
 "---------------------------------------------------------------------------
@@ -14,23 +14,22 @@ let g:github_user = 'hibiki'
 "---------------------------------------------------------------------------
 " Zencoding.vim
 "---------------------------------------------------------------------------
+au BufRead,BufNewFile *.scss set filetype=scss
 "let g:user_zen_expandabbr_key = "<C-t>"
 let g:user_zen_expandabbr_key = "<C-e>"
+"let g:user_zen_togglecomment_key = "<C-e>/"
 let g:use_zen_complete_tag = 1
-" 言語別に対応させる
+" zen-coding の設定
 let g:user_zen_settings = {
 \  'lang' : 'ja',
 \  'html' : {
 \    'filters' : 'html',
 \    'snippets' : {
 \      'jq' : "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js\"></script>\n<script>\n\\$(function() {\n\t|\n})()\n</script>",
-\      'cd' : "<![CDATA[|]]>",
-\      'img' : "<img src=\"|\" alt=\"\">",
+\      'cd' : '<![CDATA[|]]>',
+\      'img' : '<img src="|" alt="">',
 \    },
-\    'indentation' : ' '
-\  },
-\  'css' : {
-\  'filters' : 'fc',
+\    'indentation' : '',
 \  },
 \}
 
@@ -44,6 +43,15 @@ let g:neocomplcache_enable_at_startup = 1
 " unite.vim
 "---------------------------------------------------------------------------
 let g:unite_source_history_yank_enable = 1  "history/yankの有効化
+
+"---------------------------------------------------------------------------
+" proc
+"---------------------------------------------------------------------------
+if has('mac')
+"let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/vimproc_mac.so'
+elseif has('win64')
+let g:vimproc_dll_path = $HOME . '\.vim\autoload\vimproc_win64.dll'
+endif
 
 "---------------------------------------------------------------------------
 " neobundle.vim
@@ -85,7 +93,7 @@ NeoBundle 'Lokaltog/vim-easymotion.git'
 NeoBundle 'hokaccha/vim-css3-syntax.git'
 NeoBundle 'othree/eregex.vim.git'
 "NeoBundle 'git://gist.github.com/411828.git', {'directory': 'endtagcomment/plugin'} 手動で管理のほうに
-NeoBundle 'cakebaker/scss-syntax.vim.git'
+"NeoBundle 'cakebaker/scss-syntax.vim.git'//なくてよさそう
 NeoBundle 'jpo/vim-railscasts-theme.git'
 NeoBundle 'scrooloose/nerdtree.git'
 NeoBundle 'tyru/open-browser.vim.git'
@@ -95,14 +103,13 @@ NeoBundle 'h1mesuke/unite-outline.git'
 NeoBundle 'basyura/bitly.vim.git'
 NeoBundle 'tomasr/molokai.git'
 NeoBundle 'glidenote/memolist.vim'
-" sass-compile.vim - windowsでtempがどうも上手く作れてない？
-"NeoBundle 'AtsushiM/sass-compile.vim.git'
 NeoBundle 'rhysd/clever-f.vim.git'
 NeoBundle 'hokaccha/vim-html5validator.git'
 NeoBundle 'miripiruni/CSScomb-for-Vim.git'
 NeoBundle 'scrooloose/syntastic.git'
 "NeoBundle 'Lokaltog/powerline.git'
 NeoBundle 'Lokaltog/vim-powerline.git'
+NeoBundle 'thinca/vim-qfreplace'
 
 "リポジトリを持たないプラグイン
 "NeoBundle 'monday', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
@@ -149,4 +156,5 @@ set statusline+=%*
 "let g:syntastic_auto_loc_list = 1
 "let g:syntastic_javascript_checker = 'jshint'
 "let g:syntastic_enable_signs=1
+
 
