@@ -780,6 +780,7 @@ nmap     <Space>u [unite]
 "nmap     ,u [unite]
 " バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+nnoremap <silent> <C-Tab> :<C-u>Unite buffer<CR>
 "nnoremap <silent> <C-p> :<C-u>Unite buffer<CR>
 " ファイル一覧 - file_current_dir
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
@@ -825,7 +826,7 @@ if globpath(&rtp, 'plugin/unite.vim') != ''
 endif
 
 "---------------------------------------------------------------------------
-" vimfiler
+" VimFiler
 "---------------------------------------------------------------------------
 let g:vimfiler_safe_mode_by_default = 0
 let g:vimfiler_as_default_explorer = 1
@@ -835,9 +836,8 @@ nmap     <Space>f [vimfiler]
 nnoremap <silent> [vimfiler]f :<C-u>VimFiler<CR>
 "現在開いているバッファのディレクトリを開く
 nnoremap <silent> [vimfiler]d :<C-u>VimFilerBufferDir -quit<CR>
-nnoremap <silent> <C-Tab> :<C-u>VimFilerBufferDir -quit<CR>
-"現在開いているバッファをIDE風に開く
-nnoremap <silent> [vimfiler]t :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
+"現在開いているバッファをIDE風に開く -no-quit すると自動で閉じない
+nnoremap <silent> [vimfiler]t :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -quit<CR>
 "デフォルトのキーマッピングを変更
 augroup vimrc
   autocmd FileType vimfiler call s:vimfiler_my_settings()
@@ -847,6 +847,18 @@ function! s:vimfiler_my_settings()
   nmap <buffer> Q <Plug>(vimfiler_hide)
   nmap <buffer> <C-e> <Plug>(vimfiler_hide)
 endfunction
+
+"---------------------------------------------------------------------------
+" VimShell
+"---------------------------------------------------------------------------
+" vimshell setting
+if has('win32') || has('win64')
+  let g:vimshell_prompt = $USERNAME."% "
+else
+  let g:vimshell_prompt = $USER . "@" . hostname() . "% "
+endif
+" シェルを起動
+nnoremap <silent> <Space>vs :VimShell<CR>
 
 "---------------------------------------------------------------------------
 " vim-ref
@@ -1001,10 +1013,11 @@ augroup END
 "inoremap <expr> = smartchr#loop(' = ', ' == ', '=')
 autocmd FileType css inoremap <expr> : smartchr#loop(': ', ':')
 autocmd FileType css inoremap <expr> / smartchr#loop('/', '/*  */<Left><Left><Left>')
+autocmd FileType scss inoremap <expr> / smartchr#loop('/', '/*  */<Left><Left><Left>')
 "autocmd FileType php inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 "autocmd FileType javascript inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
-autocmd FileType xhtml inoremap <expr> = smartchr#one_of('=""', '=')
-autocmd FileType html inoremap <expr> = smartchr#one_of('=""', '=')
+autocmd FileType xhtml inoremap <expr> = smartchr#one_of('=""<Left>', '=')
+autocmd FileType html inoremap <expr> = smartchr#one_of('=""<Left>', '=')
 inoremap <expr> " smartchr#loop('"', '""', "'", "''")
 inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 
@@ -1108,23 +1121,6 @@ nnoremap <Space>sb :Scratch<CR>
 "---------------------------------------------------------------------------
 let g:memolist_path = "D:/EvernoteTest"
 let g:memolist_memo_suffix = "txt"
-
-"---------------------------------------------------------------------------
-" sass-compile.vim
-"---------------------------------------------------------------------------
-" 編集したファイルから遡るフォルダの最大数
-let g:sass_compile_cdloop = 5
-
-" ファイル保存時に自動コンパイル（1で自動実行）
-let g:sass_compile_auto = 1
-
-" 自動コンパイルを実行する拡張子
-let g:sass_compile_file = ['scss', 'sass']
-
-" cssファイルが入っているディレクトリ名（前のディレクトリほど優先）
-let g:sass_compile_cssdir = ['css', 'stylesheet']
-
-let g:sass_compile_beforecmd = ""
 
 "---------------------------------------------------------------------------
 " CSSComb
