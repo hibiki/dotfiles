@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 12-May-2013.
+" Last Change: 13-May-2013.
 " Maintainer:  y.y
 "
 "---------------------------------------------------------------------------
@@ -27,9 +27,35 @@ let g:user_zen_settings = {
 \    'snippets' : {
 \      'jq' : "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js\"></script>\n<script>\n\\$(function() {\n\t|\n})()\n</script>",
 \      'cd' : '<![CDATA[|]]>',
-\      'img' : '<img src="|" alt="">',
 \    },
+\    'empty_element_suffix': '>',
 \    'indentation' : '',
+\  },
+\  'scss' : {
+\    'snippets' : {
+\      'img' : '<img src="|" alt="">',
+\      'fzz' : 'font-size: fs(|,13);',
+\      "m": "margin: |;",
+\      "m:a": "margin: auto;",
+\      "mt": "margin-top: |;",
+\      "mt:a": "margin-top: auto;",
+\      "mr": "margin-right: |;",
+\      "mr:a": "margin-right: auto;",
+\      "mb": "margin-bottom: |;",
+\      "mb:a": "margin-bottom: auto;",
+\      "ml": "margin-left: |;",
+\      "ml:a": "margin-left: auto;",
+\      "p": "padding: |;",
+\      "pt": "padding-top: |;",
+\      "pr": "padding-right: |;",
+\      "pb": "padding-bottom: |;",
+\      "pl": "padding-left: |;",
+\      "w": "width: |;",
+\      "w:a": "width: auto;",
+\      "h": "height: |;",
+\      "h:a": "height: auto;",
+\    },
+\    'indentation' : ' ',
 \  },
 \}
 
