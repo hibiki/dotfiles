@@ -12,8 +12,6 @@ runtime macros/matchit.vim
 "///////////////////////////////////////////////////////////////////////////
 "---------------------------------------------------------------------------
 " カラー設定:
-"colorscheme zenburn_hibiki
-"colorscheme desert
 
 " molokai
 let g:molokai_original = 1
@@ -30,8 +28,6 @@ if has('win32')
   " Windows用
   set guifont=Consolas:h11:cSHIFTJIS
   "set guifont="Source Code Pro":h11:cSHIFTJIS
-  "set guifont=Consolas2:h11:cSHIFTJIS
-  "set guifont=meiryo:h12:cSHIFTJIS
   "set guifont=MeiryoKe_Console:h11:cSHIFTJIS
   " 行間隔の設定
   set linespace=1
@@ -98,7 +94,6 @@ nnoremap <silent> gh :let @/=''<CR>
 " ファイルタイププラグインを有効にする
 "---------------------------------------------------------------------------
 filetype plugin indent on
-"syntax enable
 
 " 色々 set 設定
 "---------------------------------------------------------------------------
@@ -131,9 +126,10 @@ set list
 set hidden
 " listで表示される文字のフォーマットを指定する
 " Listモード (訳注: オプション 'list' がオンのとき) に使われる文字を設定する。
-set listchars=eol:$,tab:>\ ,extends:<
-set listchars=tab:.\ ,extends:<
+"set listchars=eol:$,tab:>\ ,extends:<
+"set listchars=tab:.\ ,extends:<
 "set listchars=tab:>-,extends:<,trail:-,eol:<
+set listchars=tab:>-,trail:-,nbsp:-,extends:>,precedes:<
 " 行番号を表示する
 set number
 " 閉じ括弧が入力されたとき、対応する括弧を表示する
@@ -156,15 +152,10 @@ set nrformats-=octal
 set cursorline
 "改行記号 etc
 hi NonText guibg=NONE guifg=#555555
-"hi CursorLine gui=underline guibg=NONE
-"set t_Co=256
-"hi CursorLine guibg=#222222
 " ポップアップメニューのカラーを設定
 hi Pmenu guibg=#666666
 hi PmenuSel guibg=#8cd0d3 guifg=#666666
 hi PmenuSbar guibg=#333333
-" perl
-"let g:perlpath="C:/strawberry/perl/lib,C:/strawberry/perl/site/lib,C:\strawberry\perl\vendor\lib,."
 
 " 検索関連
 "---------------------------------------------------------------------------
@@ -174,7 +165,6 @@ set ignorecase
 set smartcase
 " インクリメンタルサーチを行う
 set incsearch
-
 " Omni completion
 hi Pmenu ctermbg=8
 hi PmenuSel ctermbg=12
@@ -183,6 +173,24 @@ hi PmenuSbar ctermbg=0
 " :grep を :vimgrep のエイリアスにする
 " http://bitmap.dyndns.org/blog/archives/001346.html
 :set grepprg=internal
+
+" command line window をひらいて検索したりする
+"nnoremap : q:a
+"nnoremap / q/a
+" Vim-users.jp - Hack #161: Command-line windowを使いこなす
+" http://vim-users.jp/2010/07/hack161/
+"set cmdwinheight=5
+nnoremap <sid>(command-line-enter) q:
+xnoremap <sid>(command-line-enter) q:
+nnoremap <sid>(command-line-norange) q:<C-u>
+nmap :  <sid>(command-line-enter)
+xmap :  <sid>(command-line-enter)
+autocmd CmdwinEnter * :NeoComplCacheLock
+autocmd CmdwinEnter * call s:init_cmdwin()
+function! s:init_cmdwin()
+  nnoremap <buffer> <Esc> :<C-u>quit<CR>
+  startinsert!
+endfunction
 
 " タブ・インデント周り
 "---------------------------------------------------------------------------
@@ -212,11 +220,6 @@ set tabstop=4
 
 " 折りたたみ関係
 "---------------------------------------------------------------------------
-"set foldtext=FoldCCtext()
-"set foldcolumn=5
-"set fillchars=vert:\|
-"hi Folded gui=bold term=standout ctermbg=DarkGrey ctermfg=DarkBlue guibg=Grey80 guifg=Grey30
-"hi FoldColumn gui=bold term=standout ctermbg=DarkGrey ctermfg=DarkBlue guibg=DarkGrey guifg=DarkBlue
 noremap <Space>f zf
 noremap <Space>d zd
 noremap <Space>a za
@@ -300,7 +303,7 @@ augroup END
 
 " vimでquickfixを自動で開く
 " http://webtech-walker.com/archive/2009/09/29213156.html
-"autocmd QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
+autocmd QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen | endif
 
 " 'cursorline' を必要な時にだけ有効にする
 " http://d.hatena.ne.jp/thinca/20090530/1243615055
@@ -333,18 +336,6 @@ augroup vimrc-auto-cursorline
     endif
   endfunction
 augroup END
-
-" Vim の snippet 系プラグインを使う際のTips
-" http://d.hatena.ne.jp/thinca/20090526/1243267812
-"augroup vimrc-plugin-snipMate
-"  autocmd!
-"  autocmd VimEnter,BufEnter * call s:snipMate_remap()
-"augroup END
-"function! s:snipMate_remap()
-"  smapclear
-"  smapclear <buffer>
-"  snoremap <silent> <Tab> <ESC>a<C-r>=TriggerSnippet()<CR>
-"endfunction
 
 "相対URLでもgfで開けるように
 autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
@@ -432,9 +423,6 @@ imap <C-k> <ESC>"*pa
 imap <C-p> <ESC>pa
 " Ctrl-X Ctrl-Oで補完リストの表示 -> Shift-Spaceで表示
 imap <S-Space> <C-X><C-O>
-" scroll-smooth
-"map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
-"map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 
 " 検索レジスタで検索
 "nmap <unique> g/ :exec ':vimgrep /' . getreg('/') . '/j %\|cwin'<CR>
@@ -473,8 +461,6 @@ nnoremap <Space>m  :<C-u>marks
 nnoremap <Space>r  :<C-u>registers
 
 " /と?の検索を楽にする
-"cnoremap <expr> /
-"\ getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
 
@@ -485,7 +471,6 @@ nnoremap <C-h> :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><Enter>
 
 " gvimrc の設定環境変数
-"let $MYGVIMRC = '$VIM/_gvimrc'
 let $MYGVIMRC = '$HOME/dotfiles/.gvimrc'
 
 " gvimrcを即座に開く
@@ -499,7 +484,6 @@ nnoremap <Space>s.
 \        :<C-u>source $MYGVIMRC<CR>
 
 " vimrc の設定環境変数
-"let $MYVIMRC = '$VIM/_vimrc'
 let $MYVIMRC = '$HOME/dotfiles/.vimrc'
 
 " vimrcを即座に開く
@@ -535,9 +519,6 @@ function! s:EscapeXml(regname)
   call setreg(a:regname, x)
 endfunction
 
-" F1 で作業用バッファ（メモ）を表示
-" nmap <F1> :Scratch<CR>
-
 " :w :q
 nnoremap <Space>w :<C-u>w<CR>
 nnoremap <Space>q :<C-u>q<CR>
@@ -560,19 +541,14 @@ nnoremap [tab]o  :<C-u>tabonly<CR>
 nnoremap [tab]j  :<C-u>execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
 nnoremap [tab]k  gT
 
-" F5: 前のタブ F6: 次のタブ F7: 新規タブ F8: タブを閉じる
-"nnoremap <F5> :<C-u>tabprevious<CR>
-"nnoremap <F6> :<C-u>tabnext<CR>
-"nnoremap <F7> :<C-u>tabnew<CR>
-"nnoremap <F8> :<C-u>tabclose<CR>
-"
 " 隣のタブへ移動
 nnoremap L gt
 nnoremap H gT
+"nnoremap <F5> :<C-u>tabprevious<CR>
+"nnoremap <F6> :<C-u>tabnext<CR>
 
 " バッファ操作
 " F9: バッファ削除
-"nnoremap <F9> :<C-u>bwipe<CR>
 nnoremap b  <Nop>
 nnoremap bc :<C-u>bwipe<CR>
 
@@ -609,11 +585,6 @@ nnoremap <Space>pi ciw<C-R>0<Esc>
 inoremap <C-u>  <C-g>u<C-u>
 inoremap <C-w>  <C-g>u<C-w>
 
-"<leader>fで現在のファイルをFirefoxで開く
-"noremap <Leader>f :silent ! start firefox %<CR>
-noremap <Leader>f :silent ! start %<CR>
-noremap <Leader>i :silent ! start iexplore %<CR>
-
 "ビジュアルモード時vで行末まで選択
 " http://blog.blueblack.net/item_317
 vnoremap v $h
@@ -621,9 +592,6 @@ vnoremap v $h
 " 改行抜きで一行クリップボードにコピー
 nnoremap <Space>y 0v$h"+y
 nnoremap <C-S-c> 0v$h"+y
-
-" 貼り付け
-"nnoremap <C-S-v> "+p
 
 " 置換ダイアログ表示
 "nnoremap <Space>f :promptrepl<CR>
@@ -636,35 +604,6 @@ nnoremap <S-Enter> a<br><CR><Esc>
 
 " $の入力を楽にする
 inoremap <C-d> $
-
-" HTML保存でリロード
-" http://mattn.kaoriya.net/software/vim/20100324002419.htm
-"function! s:UpdateBrowser()
-"  python<<EOM
-"import win32gui,win32api,win32con
-"hwnd = win32gui.FindWindow("MozillaUIWindowClass", None)
-"hwnd = win32gui.FindWindowEx(hwnd, 0, "MozillaWindowClass", None)
-"win32gui.SendMessage(hwnd, win32con.WM_KEYDOWN, win32con.VK_F5, 0)
-"EOM
-"endfunction
-
-"function! s:StartEditing()
-"  augroup HtmlEditing
-"    au!
-"    autocmd BufWritePost,FileWritePost *.html call s:UpdateBrowser()
-"  augroup END
-"
-"  exec "! start " . expand('%:p')
-"endfunction
-
-"function! s:StopEditing()
-"  augroup HtmlEditing
-"    au!
-"  augroup END
-"endfunction
-
-"command! HtmlStartEditing call s:StartEditing()
-"command! HtmlStopEditing call s:StopEditing()
 
 " 「:Utf8」で、ファイルを UTF-8 で開き直す
 " http://whileimautomaton.net/2008/08/vimworkshop3-kana-presentation
@@ -805,6 +744,8 @@ nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
 nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
 " UniteBookMarkAdd で追加したディレクトリを Unite bookmark で開くときのアクションのデフォルトを Vimfiler に
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+" Unite-grep
+nnoremap <silent> [unite]g :Unite grep:%:-iHRn<CR>
 
 " ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
@@ -861,33 +802,6 @@ endif
 nnoremap <silent> <Space>vs :VimShell<CR>
 
 "---------------------------------------------------------------------------
-" vim-ref
-"---------------------------------------------------------------------------
-let $PATH = $PATH . ';' . 'C:\Program Files (x86)\Lynx for Win32\'
-"let g:ref_alc_encoding = 'Shift-JIS'
-"
-"let g:ref_alc_cmd = 'lynx -dump -nonumbers %s'
-"let g:ref_alc_use_cache = 1
-"let g:ref_alc_start_linenumber = 33 " 余計な行を読み飛ばす
-"let g:ref_alc_encoding = 'UTF-8'    " イマイチよく分かってない
-"let g:ref_cache_dir = $VIM . '\dir\alccache'   " ローカルにキャッシュ
-"if exists('*ref#register_detection')
-"	" filetypeが分からんならalc
-"	call ref#register_detection('_', 'alc')
-"endif
-
-" lynx.exe の絶対パス
-let s:lynx = 'C:\usr\local\Lynx\bin\lynx.exe'
-" lynx.cfg の絶対パス
-let s:cfg  = 'C:\usr\local\Lynx\bin\lynx.cfg'
-let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
-
-"nnoremap <Space>a :Ref alc 
-
-let $JQUERY = $VIM . '\plugins\thinca-vim-ref-110d45d\myDownload\jqapi-latest\docs'
-let g:ref_jquery_path = $JQUERY
-
-"---------------------------------------------------------------------------
 " 選択範囲を数値文字参照に変換するスクリプト str2numchar.vim
 " http://d.hatena.ne.jp/secondlife/20060902/1157137092
 "---------------------------------------------------------------------------
@@ -901,42 +815,6 @@ vmap <silent> sh :Str2HexLiteral<CR>
 "---------------------------------------------------------------------------
 " ビジュアルモードで範囲選択→「:」で:'<,'>まで補完されコマンドモード→「EncodeEntities」エンターで
 " command! -range EncodeEntities :'<,'>!perl -S encode-entities.pl
-
-"---------------------------------------------------------------------------
-" project.vim
-"---------------------------------------------------------------------------
-" project.vimをトグルで使う
-" http://unsigned.g.hatena.ne.jp/Trapezoid/20070417/p2
-"function! ToggleProjectWindow()
-"	if exists("s:projectstate")
-"		unlet s:projectstate
-"		return ":close"
-"	else
-"		let s:projectstate = 1
-"		return ""
-"	endif
-"endfunction
-"map <silent> <F12> <esc>:Project<cr>:execute ToggleProjectWindow()<cr>
-nmap <silent> <F12> <Plug>ToggleProject
-
-"---------------------------------------------------------------------------
-" YR用（ヤンクリング yankring
-"---------------------------------------------------------------------------
-" function! YRRunAfterMaps()
-"   nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
-" endfunction
-" 
-" let mapleader = ','
-" nnoremap <silent> <F11> :YRShow<CR>
-" nnoremap <silent> <Leader>yr :YRGetElem<CR>
-
-"---------------------------------------------------------------------------
-" yanktmp.vim
-"---------------------------------------------------------------------------
-"let g:yanktmp_file = $VIM.'/tmp/vimyanktmp'
-"map <silent> sy :call YanktmpYank()<CR>
-"map <silent> sp :call YanktmpPaste_p()<CR>
-"map <silent> sP :call YanktmpPaste_P()<CR> 
 
 "---------------------------------------------------------------------------
 " taglist.vim: JavaScriptの表示対象を変更
@@ -1051,51 +929,9 @@ nnoremap <Space>e ^df> :<C-u>call Endtagcomment()<CR>
 inoremap <Space>e <Esc>:<C-u>call Endtagcomment()<CR>
 
 "---------------------------------------------------------------------------
-" srcexpl.vim - 今使っていない
-"---------------------------------------------------------------------------
-"自動でプレビューを表示する。TODO:うざくなってきたら手動にする。またはソースを追う時だけ自動に変更する。
-"let g:SrcExpl_RefreshTime   = 1
-"プレビューウインドウの高さ
-let g:SrcExpl_WinHeight     = 9
-"tagsは自動で作成する
-let g:SrcExpl_UpdateTags    = 1
-"マッピング
-let g:SrcExpl_RefreshMapKey = "<Space>"
-let g:SrcExpl_GoBackMapKey  = "<C-b>"
-"nmap <F8> :SrcExplToggle<CR>
-
-"---------------------------------------------------------------------------
 " showmarks
 "---------------------------------------------------------------------------
 let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-"---------------------------------------------------------------------------
-" toggle.vim
-"---------------------------------------------------------------------------
-imap <C-T> <Plug>ToggleI
-nmap <C-T> <Plug>ToggleN
-vmap <C-T> <Plug>ToggleV
-
-""---------------------------------------------------------------------------
-"" TweetVim.vim
-""---------------------------------------------------------------------------
-"" タイムライン選択用の Unite を起動する
-"nnoremap <silent> <C-t> :Unite tweetvim<CR>
-"" 発言用バッファを表示する
-"nnoremap <silent> say           :<C-u>TweetVimSay<CR>
-"" mentions を表示する
-"nnoremap <silent> <Space>re   :<C-u>TweetVimMentions<CR>
-"" 特定のリストのタイムラインを表示する
-"nnoremap <silent> <Space>tt   :<C-u>TweetVimListStatuses friends<CR>
-"
-"" スクリーン名のキャッシュを利用して、neocomplcache で補完する
-"if !exists('g:neocomplcache_dictionary_filetype_lists')
-"  let g:neocomplcache_dictionary_filetype_lists = {}
-"endif
-"let neco_dic = g:neocomplcache_dictionary_filetype_lists
-"let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
-"" アイコン表示（ImageMagickが必要）
-""let g:tweetvim_display_icon = 1
 
 "---------------------------------------------------------------------------
 " savevers.vim 編集履歴を自動ナンバリングで記録
@@ -1117,12 +953,6 @@ nnoremap <F8> :Scratch<CR>
 nnoremap <Space>sb :Scratch<CR>
 
 "---------------------------------------------------------------------------
-" memolist.vim
-"---------------------------------------------------------------------------
-let g:memolist_path = "D:/EvernoteTest"
-let g:memolist_memo_suffix = "txt"
-
-"---------------------------------------------------------------------------
 " CSSComb
 "---------------------------------------------------------------------------
 vnoremap <Space>c :CSScomb<CR>
@@ -1130,7 +960,10 @@ vnoremap <Space>c :CSScomb<CR>
 "---------------------------------------------------------------------------
 " vim-powerline
 "---------------------------------------------------------------------------
-let g:Powerline_mode_V = 'LINE-VISUAL'
+let g:Powerline_mode_V = 'VISUAL-LINE'
+let g:Powerline_mode_cv = 'VISUAL-BLOCK'
+let g:Powerline_mode_S = 'SELECT-LINE'
+let g:Powerline_mode_cs = 'SELECT-BLOCK'
 
 ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 "
