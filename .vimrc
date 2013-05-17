@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 13-May-2013.
+" Last Change: 14-May-2013.
 " Maintainer:  y.y
 "
 "---------------------------------------------------------------------------
@@ -35,25 +35,30 @@ let g:user_zen_settings = {
 \    'snippets' : {
 \      'img' : '<img src="|" alt="">',
 \      'fzz' : 'font-size: fs(|,13);',
-\      "m": "margin: |;",
-\      "m:a": "margin: auto;",
-\      "mt": "margin-top: |;",
-\      "mt:a": "margin-top: auto;",
-\      "mr": "margin-right: |;",
-\      "mr:a": "margin-right: auto;",
-\      "mb": "margin-bottom: |;",
-\      "mb:a": "margin-bottom: auto;",
-\      "ml": "margin-left: |;",
-\      "ml:a": "margin-left: auto;",
-\      "p": "padding: |;",
-\      "pt": "padding-top: |;",
-\      "pr": "padding-right: |;",
-\      "pb": "padding-bottom: |;",
-\      "pl": "padding-left: |;",
-\      "w": "width: |;",
-\      "w:a": "width: auto;",
-\      "h": "height: |;",
-\      "h:a": "height: auto;",
+\      'm': 'margin: |;',
+\      'm:a': 'margin: auto;',
+\      'mt': 'margin-top: |;',
+\      'mt:a': 'margin-top: auto;',
+\      'mr': 'margin-right: |;',
+\      'mr:a': 'margin-right: auto;',
+\      'mb': 'margin-bottom: |;',
+\      'mb:a': 'margin-bottom: auto;',
+\      'ml': 'margin-left: |;',
+\      'ml:a': 'margin-left: auto;',
+\      'p': 'padding: |;',
+\      'pt': 'padding-top: |;',
+\      'pr': 'padding-right: |;',
+\      'pb': 'padding-bottom: |;',
+\      'pl': 'padding-left: |;',
+\      'w': 'width: |;',
+\      'w:a': 'width: auto;',
+\      'h': 'height: |;',
+\      'h:a': 'height: auto;',
+\      'pos:s': 'position: static;',
+\      'pos:a': 'position: absolute;',
+\      'pos:r': 'position: relative;',
+\      'pos:f': 'position: fixed;',
+\      'c': 'color: #|;',
 \    },
 \    'indentation' : ' ',
 \  },
@@ -80,6 +85,11 @@ let g:vimproc_dll_path = $HOME . '\.vim\autoload\vimproc_win64.dll'
 endif
 
 "---------------------------------------------------------------------------
+" easymotion.vim: 
+"---------------------------------------------------------------------------
+let g:EasyMotion_leader_key = ','
+
+"---------------------------------------------------------------------------
 " neobundle.vim
 "---------------------------------------------------------------------------
 set nocompatible               " Be iMproved
@@ -89,51 +99,52 @@ if has('vim_starting')
 "  set runtimepath+=d:/tool/vim/.bundle/neobundle.vim
 "  call neobundle#rc(expand('d:/tool/vim/.bundle'))
   set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle'))
 endif
 
+call neobundle#rc(expand('~/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
 "自動でリポジトリと同期するプラグイン
-NeoBundle 'Shougo/neocomplcache.git'
-NeoBundle 'Shougo/neobundle.vim.git'
-NeoBundle 'Shougo/vimproc.git'
-NeoBundle 'Shougo/unite.vim.git'
-NeoBundle 'Shougo/vimfiler.git'
-NeoBundle 'Shougo/vimshell.git'
+NeoBundle 'Shougo/neocomplcache'
+"NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimshell'
 NeoBundleLazy 'Shougo/vimfiler', {
 \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
 \}
 NeoBundleLazy 'Shougo/vimshell', {
 \   'autoload' : { 'commands' : [ 'VimShell' ] }
 \}
-NeoBundle 'tpope/vim-surround.git'
-NeoBundle 'tpope/vim-repeat.git'
-NeoBundle 'ujihisa/unite-colorscheme.git'
-NeoBundle 'ujihisa/vimshell-ssh.git'
-NeoBundle 'altercation/vim-colors-solarized.git'
-NeoBundle 'vim-jp/vimdoc-ja.git'
-NeoBundle 'kana/vim-smartchr.git'
-NeoBundle 'mattn/zencoding-vim.git'
-NeoBundle 'mattn/gist-vim.git'
-NeoBundle 'mattn/webapi-vim.git'
-NeoBundle 'Lokaltog/vim-easymotion.git'
-NeoBundle 'hokaccha/vim-css3-syntax.git'
-NeoBundle 'othree/eregex.vim.git'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'ujihisa/vimshell-ssh'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundle 'kana/vim-smartchr'
+NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'hokaccha/vim-css3-syntax'
+NeoBundle 'othree/eregex.vim'
 "NeoBundle 'git://gist.github.com/411828.git', {'directory': 'endtagcomment/plugin'} 手動で管理のほうに
 "NeoBundle 'cakebaker/scss-syntax.vim.git'//なくてよさそう
-NeoBundle 'jpo/vim-railscasts-theme.git'
-NeoBundle 'scrooloose/nerdtree.git'
-NeoBundle 'tyru/open-browser.vim.git'
-NeoBundle 'basyura/twibill.vim.git'
-"NeoBundle 'basyura/TweetVim.git'
-NeoBundle 'h1mesuke/unite-outline.git'
-NeoBundle 'basyura/bitly.vim.git'
-NeoBundle 'tomasr/molokai.git'
-NeoBundle 'glidenote/memolist.vim'
-NeoBundle 'rhysd/clever-f.vim.git'
-NeoBundle 'hokaccha/vim-html5validator.git'
-NeoBundle 'miripiruni/CSScomb-for-Vim.git'
-NeoBundle 'scrooloose/syntastic.git'
-"NeoBundle 'Lokaltog/powerline.git'
+NeoBundle 'jpo/vim-railscasts-theme'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'basyura/twibill.vim'
+"NeoBundle 'basyura/TweetVim'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'basyura/bitly.vim'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'hokaccha/vim-html5validator'
+NeoBundle 'miripiruni/CSScomb-for-Vim'
 NeoBundle 'Lokaltog/vim-powerline.git'
 NeoBundle 'thinca/vim-qfreplace'
 
@@ -144,43 +155,7 @@ NeoBundleLocal ~/.vim/bundle_manual
 
 filetype plugin on
 filetype indent on
-
-"---------------------------------------------------------------------------
-" easymotion.vim: 
-"---------------------------------------------------------------------------
-let g:EasyMotion_leader_key = ','
-
-"---------------------------------------------------------------------------
-" syntastic (for jiHint) 
-"---------------------------------------------------------------------------
-let g:syntastic_check_on_open = 1
-"保存時にはチェック
-let g:syntastic_check_on_save = 1
-"エラーがあったら自動でロケーションリストを開く
-let g:syntastic_auto_loc_list = 2
-"エラー表示ウィンドウの高さ
-let g:syntastic_loc_list_height = 6
-"エラー表示マークを変更
-let g:syntastic_enable_signs=1
-let g:syntastic_error_symbol='x'
-let g:syntastic_warning_symbol='!!'
-"jshintを使う
-let g:syntastic_javascript_checker = 'jshint'
-let g:syntastic_mode_map = {
-      \  'mode': 'active',
-      \ 'active_filetypes': [],
-      \ 'passive_filetypes': ['html']
-      \ }
-"      \ 'active_filetypes': ['ruby', 'javascript'],
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-"let g:syntastic_mode_map = { 'mode': 'active',
-"  \ 'active_filetypes': [],
-"  \ 'passive_filetypes': ['html'] }
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_javascript_checker = 'jshint'
-"let g:syntastic_enable_signs=1
+" Installation check.
+NeoBundleCheck
 
 
