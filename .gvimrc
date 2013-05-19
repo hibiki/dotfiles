@@ -967,6 +967,33 @@ let g:Powerline_mode_cv = 'VISUAL-BLOCK'
 let g:Powerline_mode_S = 'SELECT-LINE'
 let g:Powerline_mode_cs = 'SELECT-BLOCK'
 
+"---------------------------------------------------------------------------
+" fugitive
+"---------------------------------------------------------------------------
+nnoremap <silent> <Space>gb :Gblame<CR>
+nnoremap <silent> <Space>gd :Gdiff<CR>
+nnoremap <silent> <Space>gs :Gstatus<CR>
+
+"---------------------------------------------------------------------------
+" gitv
+"---------------------------------------------------------------------------
+autocmd FileType git :setlocal foldlevel=99
+" gitv ウィンドウ設定
+function! s:gitv_get_current_hash()
+  return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+endfunction
+autocmd FileType gitv call s:my_gitv_settings()
+function! s:my_gitv_settings()
+  " ここに設定を書く
+  setlocal iskeyword+=/,-,.
+  nnoremap <silent><buffer> C :<C-u>Git checkout <C-r><C-w><CR>
+  nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+  nnoremap <buffer> <Space>R :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
+  nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
+  nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
+endfunction
+
+
 ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 "
 " 文字コードの自動認識用
