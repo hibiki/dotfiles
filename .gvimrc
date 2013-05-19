@@ -180,19 +180,19 @@ hi PmenuSbar ctermbg=0
 " Vim-users.jp - Hack #161: Command-line windowを使いこなす
 " http://vim-users.jp/2010/07/hack161/
 "set cmdwinheight=5
-nnoremap <sid>(command-line-enter) q:
-xnoremap <sid>(command-line-enter) q:
-nnoremap <sid>(command-line-norange) q:<C-u>
-nmap :  <sid>(command-line-enter)
-xmap :  <sid>(command-line-enter)
-autocmd CmdwinEnter * :NeoComplCacheLock
-autocmd CmdwinEnter * call s:init_cmdwin()
-function! s:init_cmdwin()
-  nnoremap <buffer> <Esc> :<C-u>quit<CR>
-  startinsert!
-endfunction
+"nnoremap <sid>(command-line-enter) q:
+"xnoremap <sid>(command-line-enter) q:
+"nnoremap <sid>(command-line-norange) q:<C-u>
+"nmap :  <sid>(command-line-enter)
+"xmap :  <sid>(command-line-enter)
+"autocmd CmdwinEnter * :NeoComplCacheLock
+"autocmd CmdwinEnter * call s:init_cmdwin()
+"function! s:init_cmdwin()
+"  nnoremap <buffer> <Esc> :<C-u>quit<CR>
+"  startinsert!
+"endfunction
 
-nnoremap q: :
+"nnoremap q: :
 
 " タブ・インデント周り
 "---------------------------------------------------------------------------
@@ -977,10 +977,17 @@ nnoremap <silent> <Space>gs :Gstatus<CR>
 "---------------------------------------------------------------------------
 " gitv
 "---------------------------------------------------------------------------
+" http://d.hatena.ne.jp/cohama/20130517/1368806202
 autocmd FileType git :setlocal foldlevel=99
 " gitv ウィンドウ設定
 function! s:gitv_get_current_hash()
   return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+endfunction
+autocmd FileType git setlocal nofoldenable foldlevel=0
+function! s:toggle_git_folding()
+  if &filetype ==# 'git'
+    setlocal foldenable!
+  endif
 endfunction
 autocmd FileType gitv call s:my_gitv_settings()
 function! s:my_gitv_settings()
@@ -991,6 +998,7 @@ function! s:my_gitv_settings()
   nnoremap <buffer> <Space>R :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
   nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
   nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
+  nnoremap <silent><buffer> t :<C-u>windo call <SID>toggle_git_folding()<CR>1<C-w>w
 endfunction
 
 
