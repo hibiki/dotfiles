@@ -768,6 +768,12 @@ if globpath(&rtp, 'plugin/unite.vim') != ''
   nnoremap sc :<C-u>Unite colorscheme<Cr>
 endif
 
+" :Unite reanimate の呼び出し時に default-action を設定
+" 復元
+nnoremap <silent> [unite]s :Unite reanimate -default-action=reanimate_load<CR>
+" 保存
+nnoremap <silent> [unite]S :Unite reanimate -default-action=reanimate_save<CR>
+
 "---------------------------------------------------------------------------
 " VimFiler
 "---------------------------------------------------------------------------
@@ -1001,6 +1007,34 @@ function! s:my_gitv_settings()
   nnoremap <silent><buffer> t :<C-u>windo call <SID>toggle_git_folding()<CR>1<C-w>w
 endfunction
 
+"---------------------------------------------------------------------------
+" reanimate.vim
+"---------------------------------------------------------------------------
+" 保存先のディレクトリ
+let g:reanimate_save_dir = $VIM."/dir/save_point"
+" デフォルトの保存名
+let g:reanimate_default_save_name = "latest"
+" sessionoptions
+let g:reanimate_sessionoptions="curdir,folds,globals,help,localoptions,slash,tabpages,winsize"
+" ステータスラインに現在の保存名を出力
+function! Last_point()
+    return reanimate#is_saved() ? reanimate#last_point() : "no save"
+endfunction
+set statusline=%=[%{Last_point()}\]\[%{(&fenc!=''?&fenc:&enc)}/%{&ff}]\[%03l,%03v]
+
+" オートコマンド
+augroup SavePoint
+    autocmd!
+    " 終了時に保存を行う
+    autocmd VimLeavePre * ReanimateSave
+
+    " バッファに書き込む時に一緒の保存する
+"    autocmd BufWritePost * ReanimateSave
+    " CursorHold 時には ReanimateSaveCursorHold を使用する
+"     autocmd CursorHold * ReanimateSaveCursorHold
+    " 自動的に復元する場合
+"     autocmd VimEnter * ReanimateLoad
+augroup END
 
 ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 "

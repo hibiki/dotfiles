@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 19-May-2013.
+" Last Change: 16-Jun-2013.
 " Maintainer:  y.y
 "
 "---------------------------------------------------------------------------
@@ -149,6 +149,7 @@ NeoBundle 'Lokaltog/vim-powerline.git'
 NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
+NeoBundle 'osyo-manga/vim-reanimate'
 
 "リポジトリを持たないプラグイン
 "NeoBundle 'monday', {'type' : 'nosync', 'base' : '~/.bundle_manual'}
