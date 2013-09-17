@@ -1033,7 +1033,7 @@ augroup SavePoint
     " CursorHold 時には ReanimateSaveCursorHold を使用する
 "     autocmd CursorHold * ReanimateSaveCursorHold
     " 自動的に復元する場合
-"     autocmd VimEnter * ReanimateLoad
+     autocmd VimEnter * ReanimateLoad
 augroup END
 
 ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
