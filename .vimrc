@@ -1,3 +1,7 @@
+" シンタックスハイライトを有効にする
+"---------------------------------------------------------------------------
+syntax enable
+
 " ファイルタイププラグインを有効にする
 "---------------------------------------------------------------------------
 filetype plugin indent on
@@ -15,14 +19,22 @@ set wildmenu						" コマンドラインモードでtabで補完
 set backupdir=$HOME/.vimdir/backup	" バックアップファイルを作るディレクトリ
 set directory=$HOME/.vimdir/swap	" スワップファイル用のディレクトリ
 set viewdir=$HOME/.vimdir/view		" viewdir(:mkviewで利用)用のディレクトリ
+set undodir=$HOME/.vimdir/undo		" undofile用のディレクトリ
 
 " ファイルを上書きする前にバックアップを作る。書き込みが成功してもバックアップはそのまま取っておく。（有効:backup/無効:nobackup）
 set nobackup
+
 " ファイルの上書きの前にバックアップを作る。オプション 'backup' がオンでない限り、バックアップは上書きに成功した後削除される。（有効:writebackup/無効:nowritebackup）
 set writebackup
+
 " ファイル保存ダイアログの初期ディレクトリをバッファファイル位置に設定
 set browsedir=buffer 
 
+" スワップファイルを読み込みオンリーにする
+augroup swapchoice-readonly
+  autocmd!
+  autocmd SwapExists * let v:swapchoice = 'o'
+augroup END
 
 " 表示
 "---------------------------------------------------------------------------
@@ -31,34 +43,41 @@ set tags=tags			" tagsを利用する
 set shellslash			" \ (バックスラッシュ)を / (スラッシュ)に変更
 set number				" 行番号を表示する
 set showmatch			" 閉じ括弧が入力されたとき、対応する括弧を表示する
+set matchtime=1			" showmatchの時間（1で0.1秒）
 set laststatus=2		"ステータスラインを常に表示
 set cursorline			"カーソル行下線（「set cursorline」がある場合に有効）
 set list				" タブ文字を CTRL-I で表示し、行末に $ で表示する。（有効:list/無効:nolist）
+set display=lastline	" 一行の文字数が多くても描画する
+set pumheight=10		" 補完メニューの高さ
 
 "ステータスラインに文字コードと改行文字を表示する
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
 " Listモード (訳注: オプション 'list' がオンのとき) に使われる文字を設定する。（eol:$とか）
-set listchars=tab:>-,trail:-,nbsp:-,extends:>,precedes:<
+set listchars=tab:>-,trail:-,nbsp:.,extends:>,precedes:<
 
 
 " タブ・インデント
 "---------------------------------------------------------------------------
 
-set shiftwidth=2		" シフト移動幅
+set noexpandtab			" タブを利用する（タブ入力でスペースに変換したい場合は set expandtab）
+set shiftwidth=2		" オートインデントなどvimが挿入するインデントなどの幅
+set tabstop=2			" タブを表示するときの幅
+set softtabstop=0		" <tab>キーで挿入される空白の量、0の場合tabstopの値となる
 set smartindent			" 新しい行を作ったときに高度な自動インデントを行う
 set smarttab			" 行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする。
 set autoindent			" 新しい行のインデントを現在行と同じにする
 set copyindent			" 新しい行にインデントを自動挿入する際、既存行のインデント構造をコピーする
 set preserveindent		" 現在行のインデント量を調整する際、すでにある部分はインデント構造を保つ
-set noexpandtab			" タブを利用する（タブ入力でスペースに変換したい場合は set expandtab）
 
 " js ではタブ入力した場合スペースにする
 autocmd BufNewFile,BufRead *.js setlocal expandtab shiftwidth=2 softtabstop=2
-set autoindent
+" coffee
+autocmd FileType coffee setlocal et sw=2 sts=2 ts=2
+
 
 "タブ幅をリセット
-au BufNewFile,BufRead * set tabstop=2 shiftwidth=2
+au BufNewFile,BufRead * set tabstop=4 shiftwidth=4
 
 
 " 検索
@@ -71,6 +90,10 @@ set incsearch		" インクリメンタルサーチを行う
 " gh で検索文字列のハイライト解除 
 nnoremap <silent> gh :let @/=''<CR>
 
+" ファイルタイプ
+"---------------------------------------------------------------------------
+au BufRead,BufNewFile *.scss set filetype=scss
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 
 " その他
 "---------------------------------------------------------------------------
@@ -209,13 +232,19 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
-map! <C-B> <Left>			" Ctrl+Bで一文字戻る
-map! <C-D> <Del>			" Ctrl+Dでカーソルの下の文字を削除
+" Ctrl+Bで一文字戻る
+map! <C-B> <Left>
+" Ctrl+Dでカーソルの下の文字を削除
+map! <C-D> <Del>
 
-imap <C-k> <ESC>"*pa		" 挿入モードでクリップボードの内容を貼り付ける
-imap <C-p> <ESC>pa			" 挿入モードで無名レジスタを貼り付ける
-noremap <C-p> "0p			" Ctrl-p で "0p を貼り付ける
-vmap <C-c> "+y				" Ctrl-c でクリップボードにコピー
+" 挿入モードでクリップボードの内容を貼り付ける
+imap <C-p> <esc>"*pa
+" 挿入モードで無名レジスタを貼り付ける
+imap <C-k> <ESC>pa
+" Ctrl-p で "0p を貼り付ける
+noremap <C-p> "0p
+" Ctrl-c でクリップボードにコピー
+vmap <C-c> "+y
 
 " <Space>pと<Space>yでシステムのクリップボードにコピー＆ペーストする
 vmap <Leader>y "+y
@@ -227,6 +256,9 @@ vmap <Leader>P "+P
 
 " 改行抜きで一行クリップボードにコピー
 nnoremap <Leader>y 0v$h"+y
+
+" Y でその位置から行末までをコピー
+nnoremap Y y$
 
 " Ctrl-X Ctrl-Oで補完リストの表示 -> Shift-Spaceで表示
 imap <S-Space> <C-X><C-O>
@@ -266,7 +298,8 @@ nnoremap <Leader>r  :<C-u>registers
 " very magic を利用することに変更
 " Vimでパターン検索するなら知っておいたほうがいいこと - derisの日記
 " http://deris.hatenablog.jp/entry/2013/05/15/024932
-nnoremap /  /\v
+" incsearch.vim使うのでコメントアウト
+" nnoremap /  /\v
 
 " tab → &nbsp; *4
 nnoremap <Leader>st <S-v>:s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g<CR>:let @/=''<CR>
@@ -358,9 +391,9 @@ vmap <silent> <expr> p <sid>Repl()
 " proc
 "---------------------------------------------------------------------------
 if has('mac')
-"let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/vimproc_mac.so'
+  let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/vimproc_mac.so'
 elseif has('win64')
-let g:vimproc_dll_path = $HOME . '\.vim\autoload\vimproc_win64.dll'
+  let g:vimproc_dll_path = $HOME . '\.vim\autoload\vimproc_win64.dll'
 endif
 
 
@@ -378,13 +411,15 @@ let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 " Zencoding.vim -> Emmet.vim
 "---------------------------------------------------------------------------
-au BufRead,BufNewFile *.scss set filetype=scss
+let g:user_emmet_leader_key='<C-Z>'
 let g:user_emmet_expandabbr_key = "<C-e>"
 "let g:user_zen_togglecomment_key = "<C-e>/"
 let g:use_emmet_complete_tag = 1
 " zen-coding の設定
 let g:user_emmet_settings = {
-\  'lang' : 'ja',
+\  'variables': {
+\    'lang' : 'ja'
+\  },
 \  'html' : {
 \    'filters' : 'html',
 \    'snippets' : {
@@ -456,24 +491,26 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
-"imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-"smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
-" SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+endfunction
 " <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
+"inoremap <expr><C-y>  neocomplcache#close_popup()
 "inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -488,9 +525,28 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+
+" neosnippet.vim
+"---------------------------------------------------------------------------
+" <TAB>: completion.
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+" Plugin key-mappings.
+imap <C-s>     <Plug>(neosnippet_expand_or_jump)
+smap <C-s>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-s>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker.
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 
 " unite.vim
@@ -709,9 +765,12 @@ nmap <silent> <F7> :VersDiff -c<cr>
 
 " fugitive 
 "---------------------------------------------------------------------------
-nnoremap <silent> <Leader>gb :Gblame<CR>	" 現在のソースをgit blame
-nnoremap <silent> <Leader>gd :Gdiff<CR>		" 現在のソースの変更点をvimdiffで表示
-nnoremap <silent> <Leader>gs :Gstatus<CR>	" 新しい窓を作ってgit statusを表示
+" 現在のソースをgit blame
+nnoremap <silent> <Leader>gb :Gblame<CR>
+" 現在のソースの変更点をvimdiffで表示
+nnoremap <silent> <Leader>gd :Gdiff<CR>
+" 新しい窓を作ってgit statusを表示
+nnoremap <silent> <Leader>gs :Gstatus<CR>
 
 
 " gitv
@@ -793,6 +852,38 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 
+" incsearch.vim
+" http://haya14busa.com/enrich-your-search-experience-with-incsearch-vim/
+"---------------------------------------------------------------------------
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+"let g:incsearch#magic = '\v'
+
+
+" vim-anzu.vim
+"---------------------------------------------------------------------------
+" mapping
+nmap  n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+nmap  N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+
+" clear status
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
+" statusline
+set statusline=%{anzu#search_status()}
+
 
 "---------------------------------------------------------------------------
 " neobundle.vim
@@ -861,17 +952,27 @@ NeoBundle 'osyo-manga/vim-reanimate'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'kana/vim-operator-replace'
 NeoBundle 'osyo-manga/vim-over'
+NeoBundle 'terryma/vim-expand-region'
+NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'kchmck/vim-coffee-script'
 " colorscheme
 NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'sjl/badwolf'
 NeoBundle 'koron/codic-vim'
-NeoBundle 'terryma/vim-expand-region'
 
 "リポジトリを持たないプラグイン
 NeoBundleLocal ~/.vim/bundle_manual
 
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
 " Installation check.
 NeoBundleCheck
 
-call neobundle#end()
+

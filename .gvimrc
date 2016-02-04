@@ -4,7 +4,7 @@
 " カラー設定
 let g:molokai_original = 1
 "colorscheme molokai
-colorscheme slate
+colorscheme molokai
 
 " フォント
 if has('win32')
@@ -44,9 +44,17 @@ endif
 
 
 
-
-" 
+" ab	コマンドラインモードと挿入モードの短縮入力の設定
+" ca	コマンドラインモードの短縮入力の設定
+" ia	挿入モードの短縮入力の設定
 "---------------------------------------------------------------------------
+" nnoremap <Leader>cp _(":%s/\v(\<\/a\>)%( |　)?%(%(\[|［|【)(PDF|Excel|JPG|Word|doc|DOC)%( |　)?([,0-9]*%(KB|MB|kb|mb))%(\]|］|】))/ [\2 \3]\1/g")
 
+"ca <Leader>cp %s/\v(\<\/a\>)%( |　)?%(%(\[|［|【)(PDF|Excel|JPG|Word|doc|DOC)%( |　)?([,0-9]*%(KB|MB|kb|mb))%(\]|］|】))/ [\2 \3]\1/g
+
+"ca ppp %s/\v(\<\/a\>)%( |　)?%(%(\[|［|【)(PDF|Excel|JPG|Word|doc|DOC)%( |　)?([,0-9]*%(KB|MB|kb|mb))%(\]|］|】))/ [\2 \3]\1/g
+
+
+ab widht width
 
 
